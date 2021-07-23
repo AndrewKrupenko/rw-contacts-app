@@ -9,6 +9,8 @@ import Paper from '@material-ui/core/Paper';
 import Avatar from '@material-ui/core/Avatar';
 import Typography from "@material-ui/core/Typography";
 import format from 'date-fns/format'
+import {CopyToClipboardText} from "../../../components/CopyToClipboardText";
+import {NATIONALITIES_HUMAN_NAME} from "../../../constants/nationality";
 
 const useStyles = makeStyles({
   table: {
@@ -44,10 +46,19 @@ export const ContactsTable = ({ data }) => {
                 <Typography>{format(new Date(item.dob.date), 'MM.dd.yyyy')}</Typography>
                 <Typography>{item.dob.age} years</Typography>
               </TableCell>
-              <TableCell>{item.email}</TableCell>
-              <TableCell>{item.phone}</TableCell>
-              <TableCell>{item.location.country}</TableCell>
-              <TableCell>7</TableCell>
+              <TableCell>
+                <CopyToClipboardText text={item.email} />
+              </TableCell>
+              <TableCell>
+                <CopyToClipboardText text={item.phone} />
+              </TableCell>
+              <TableCell>
+                <Typography>{item.location.country}</Typography>
+                <Typography>
+                  {item.location.city}, {item.location.street.name} {item.location.street.number}
+                </Typography>
+              </TableCell>
+              <TableCell>{NATIONALITIES_HUMAN_NAME[item.nat]}</TableCell>
             </TableRow>
           ))}
         </TableBody>
